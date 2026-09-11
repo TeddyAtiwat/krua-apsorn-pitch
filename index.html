@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Krua Apsorn — London Expansion</title>
+<style>
+  :root {
+    --navy: #1a2b4a;
+    --white: #ffffff;
+    --gold: #c8a96b;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--navy);
+    color: var(--white);
+  }
+
+  .deck {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 6vh 8vw;
+    opacity: 0;
+    transform: translateX(40px);
+    pointer-events: none;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .slide.prev {
+    transform: translateX(-40px);
+  }
+
+  /* ---------- Shared text styles ---------- */
+  .eyebrow {
+    color: var(--gold);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: clamp(1rem, 1.6vw, 1.4rem);
+    color: rgba(255,255,255,0.7);
+    font-weight: 400;
+    max-width: 700px;
+    margin-top: 1.2rem;
+    line-height: 1.5;
+  }
+
+  .gold { color: var(--gold); }
+
+  /* ---------- Slide 1: Title ---------- */
+  #slide-1 {
+    text-align: center;
+  }
+
+  #slide-1 .brand {
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-top: 2rem;
+  }
+
+  /* ---------- Slide content wrapper ---------- */
+  .content-slide {
+    width: 100%;
+    max-width: 1100px;
+    align-items: flex-start;
+  }
+
+  .content-slide .header {
+    width: 100%;
+    margin-bottom: 3rem;
+  }
+
+  /* ---------- Slide 2: Market Opportunity ---------- */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(200,169,107,0.3);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+  }
+
+  .stat-number {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 0.8rem;
+  }
+
+  .stat-label {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.4;
+  }
+
+  /* ---------- Slide 3: Financial Opportunity ---------- */
+  .fin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .fin-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 1.2rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .fin-label {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .fin-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  /* ---------- Slide 4: Unit Economics Calculator ---------- */
+  .calc-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    width: 100%;
+    align-items: start;
+  }
+
+  .calc-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .input-group label {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.7);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .input-group label span.val {
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.2);
+    outline: none;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--gold);
+    cursor: pointer;
+    border: 2px solid var(--navy);
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--gold);
+    cursor: pointer;
+    border: 2px solid var(--navy);
+  }
+
+  .calc-results {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(200,169,107,0.3);
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .result-row .r-label {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.95rem;
+  }
+
+  .result-row .r-value {
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .result-row.total .r-value {
+    color: var(--gold);
+    font-size: 1.8rem;
+  }
+
+  .divider {
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+  }
+
+  /* ---------- Navigation ---------- */
+  .nav-btn {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(200,169,107,0.4);
+    color: var(--white);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background 0.2s ease, opacity 0.2s ease;
+  }
+
+  .nav-btn:hover {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  .nav-btn:disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+
+  .nav-btn:disabled:hover {
+    background: rgba(255,255,255,0.08);
+    color: var(--white);
+  }
+
+  #prev-btn { left: 2rem; }
+  #next-btn { right: 2rem; }
+
+  .slide-counter {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 2rem;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.05em;
+    z-index: 10;
+  }
+
+  .slide-counter .gold { font-weight: 700; }
+
+  @media (max-width: 800px) {
+    .stat-grid, .fin-grid, .calc-wrapper {
+      grid-template-columns: 1fr;
+    }
+    .nav-btn { width: 40px; height: 40px; }
+    #prev-btn { left: 1rem; }
+    #next-btn { right: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="deck">
+
+  <!-- Slide 1: Title -->
+  <section class="slide active" id="slide-1">
+    <div class="eyebrow">Investor Pitch</div>
+    <h1>Krua Apsorn</h1>
+    <div class="brand">London Expansion</div>
+    <p class="subtitle">Bringing Bangkok's most beloved home-style Thai kitchen to London — an authentic, chef-driven concept ready for its first international location.</p>
+  </section>
+
+  <!-- Slide 2: Market Opportunity -->
+  <section class="slide content-slide" id="slide-2">
+    <div class="header">
+      <div class="eyebrow">Slide 02</div>
+      <h2>Market Opportunity</h2>
+      <p class="subtitle">London's appetite for authentic, quality Thai dining is large, growing, and underserved.</p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-number">£24B</div>
+        <div class="stat-label">Size of the UK out-of-home dining market that Thai cuisine competes within</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">450+</div>
+        <div class="stat-label">Thai restaurants in Greater London, few offering true regional, chef-led cooking</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">18%</div>
+        <div class="stat-label">Annual growth in London diners seeking "authentic" Southeast Asian experiences</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 3: Financial Opportunity -->
+  <section class="slide content-slide" id="slide-3">
+    <div class="header">
+      <div class="eyebrow">Slide 03</div>
+      <h2>Financial Opportunity</h2>
+      <p class="subtitle">A capital-efficient flagship location with a clear path to profitability.</p>
+    </div>
+    <div class="fin-grid">
+      <div>
+        <div class="fin-row">
+          <span class="fin-label">Initial Investment</span>
+          <span class="fin-value">£850,000</span>
+        </div>
+        <div class="fin-row">
+          <span class="fin-label">Projected Year 1 Revenue</span>
+          <span class="fin-value">£1.9M</span>
+        </div>
+        <div class="fin-row">
+          <span class="fin-label">Target EBITDA Margin</span>
+          <span class="fin-value">18%</span>
+        </div>
+        <div class="fin-row">
+          <span class="fin-label">Break-even</span>
+          <span class="fin-value">14 months</span>
+        </div>
+      </div>
+      <div>
+        <div class="fin-row">
+          <span class="fin-label">Projected Year 3 Revenue</span>
+          <span class="fin-value">£3.1M</span>
+        </div>
+        <div class="fin-row">
+          <span class="fin-label">5-Year ROI</span>
+          <span class="fin-value">3.4x</span>
+        </div>
+        <div class="fin-row">
+          <span class="fin-label">Average Cover Spend</span>
+          <span class="fin-value">£42</span>
+        </div>
+        <div class="fin-row">
+          <span class="fin-label">Seats at Flagship</span>
+          <span class="fin-value">85</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Slide 4: Unit Economics Calculator -->
+  <section class="slide content-slide" id="slide-4">
+    <div class="header">
+      <div class="eyebrow">Slide 04</div>
+      <h2>Unit Economics Calculator</h2>
+      <p class="subtitle">Adjust the assumptions to model a single location's annual performance.</p>
+    </div>
+    <div class="calc-wrapper">
+      <div class="calc-inputs">
+        <div class="input-group">
+          <label>Seats <span class="val" id="seats-val">85</span></label>
+          <input type="range" id="seats" min="30" max="150" value="85" step="5">
+        </div>
+        <div class="input-group">
+          <label>Avg. Spend per Cover (£) <span class="val" id="spend-val">42</span></label>
+          <input type="range" id="spend" min="15" max="80" value="42" step="1">
+        </div>
+        <div class="input-group">
+          <label>Table Turns per Day <span class="val" id="turns-val">2.5</span></label>
+          <input type="range" id="turns" min="1" max="5" value="2.5" step="0.5">
+        </div>
+        <div class="input-group">
+          <label>Days Open per Year <span class="val" id="days-val">360</span></label>
+          <input type="range" id="days" min="300" max="365" value="360" step="5">
+        </div>
+        <div class="input-group">
+          <label>Food & Labor Cost (% of Revenue) <span class="val" id="cost-val">65</span></label>
+          <input type="range" id="cost" min="40" max="85" value="65" step="1">
+        </div>
+      </div>
+      <div class="calc-results">
+        <div class="result-row">
+          <span class="r-label">Covers per Day</span>
+          <span class="r-value" id="covers-day">213</span>
+        </div>
+        <div class="result-row">
+          <span class="r-label">Covers per Year</span>
+          <span class="r-value" id="covers-year">76,500</span>
+        </div>
+        <div class="divider"></div>
+        <div class="result-row">
+          <span class="r-label">Annual Revenue</span>
+          <span class="r-value" id="revenue">£3,213,000</span>
+        </div>
+        <div class="result-row">
+          <span class="r-label">Operating Costs</span>
+          <span class="r-value" id="opcosts">£2,088,450</span>
+        </div>
+        <div class="divider"></div>
+        <div class="result-row total">
+          <span class="r-label">Est. Annual Profit</span>
+          <span class="r-value" id="profit">£1,124,550</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<button class="nav-btn" id="prev-btn" aria-label="Previous slide">&#8249;</button>
+<button class="nav-btn" id="next-btn" aria-label="Next slide">&#8250;</button>
+<div class="slide-counter"><span class="gold" id="current-num">1</span> / <span id="total-num">4</span></div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let current = 0;
+
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const currentNum = document.getElementById('current-num');
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.remove('active', 'prev');
+      if (i === index) {
+        slide.classList.add('active');
+      } else if (i < index) {
+        slide.classList.add('prev');
+      }
+    });
+    currentNum.textContent = index + 1;
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === total - 1;
+  }
+
+  function goNext() {
+    if (current < total - 1) {
+      current++;
+      showSlide(current);
+    }
+  }
+
+  function goPrev() {
+    if (current > 0) {
+      current--;
+      showSlide(current);
+    }
+  }
+
+  prevBtn.addEventListener('click', goPrev);
+  nextBtn.addEventListener('click', goNext);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') goNext();
+    if (e.key === 'ArrowLeft') goPrev();
+  });
+
+  showSlide(current);
+
+  // ---------- Unit Economics Calculator ----------
+  const seatsInput = document.getElementById('seats');
+  const spendInput = document.getElementById('spend');
+  const turnsInput = document.getElementById('turns');
+  const daysInput = document.getElementById('days');
+  const costInput = document.getElementById('cost');
+
+  const seatsVal = document.getElementById('seats-val');
+  const spendVal = document.getElementById('spend-val');
+  const turnsVal = document.getElementById('turns-val');
+  const daysVal = document.getElementById('days-val');
+  const costVal = document.getElementById('cost-val');
+
+  const coversDayEl = document.getElementById('covers-day');
+  const coversYearEl = document.getElementById('covers-year');
+  const revenueEl = document.getElementById('revenue');
+  const opcostsEl = document.getElementById('opcosts');
+  const profitEl = document.getElementById('profit');
+
+  function formatGBP(num) {
+    return '£' + Math.round(num).toLocaleString('en-GB');
+  }
+
+  function formatInt(num) {
+    return Math.round(num).toLocaleString('en-GB');
+  }
+
+  function calculate() {
+    const seats = parseFloat(seatsInput.value);
+    const spend = parseFloat(spendInput.value);
+    const turns = parseFloat(turnsInput.value);
+    const days = parseFloat(daysInput.value);
+    const costPct = parseFloat(costInput.value);
+
+    seatsVal.textContent = seats;
+    spendVal.textContent = spend;
+    turnsVal.textContent = turns;
+    daysVal.textContent = days;
+    costVal.textContent = costPct;
+
+    const coversPerDay = seats * turns;
+    const coversPerYear = coversPerDay * days;
+    const revenue = coversPerYear * spend;
+    const opCosts = revenue * (costPct / 100);
+    const profit = revenue - opCosts;
+
+    coversDayEl.textContent = formatInt(coversPerDay);
+    coversYearEl.textContent = formatInt(coversPerYear);
+    revenueEl.textContent = formatGBP(revenue);
+    opcostsEl.textContent = formatGBP(opCosts);
+    profitEl.textContent = formatGBP(profit);
+  }
+
+  [seatsInput, spendInput, turnsInput, daysInput, costInput].forEach(input => {
+    input.addEventListener('input', calculate);
+  });
+
+  calculate();
+</script>
+
+</body>
+</html>
