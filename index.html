@@ -168,6 +168,58 @@
     color: var(--gold);
   }
 
+  .trajectory {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .year-row {
+    display: grid;
+    grid-template-columns: 70px 1fr 170px;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .year-label {
+    font-weight: 700;
+    color: var(--gold);
+    font-size: 1rem;
+  }
+
+  .bar-track {
+    background: rgba(255,255,255,0.08);
+    border-radius: 8px;
+    height: 34px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    background: linear-gradient(90deg, rgba(200,169,107,0.5), var(--gold));
+    transition: width 0.8s ease;
+  }
+
+  .year-figures {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .year-revenue {
+    font-weight: 700;
+    color: var(--white);
+    font-size: 1.05rem;
+  }
+
+  .year-occupancy {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.55);
+  }
+
   /* ---------- Slide 4: Unit Economics Calculator ---------- */
   .calc-wrapper {
     display: grid;
@@ -342,20 +394,20 @@
     <div class="header">
       <div class="eyebrow">Slide 02</div>
       <h2>Market Opportunity</h2>
-      <p class="subtitle">London's appetite for authentic, quality Thai dining is large, growing, and underserved.</p>
+      <p class="subtitle">London remains the UK's highest-spending dining region, with a gap in authentic mid-market Thai heritage brands.</p>
     </div>
     <div class="stat-grid">
       <div class="stat-card">
-        <div class="stat-number">£24B</div>
-        <div class="stat-label">Size of the UK out-of-home dining market that Thai cuisine competes within</div>
+        <div class="stat-number">£23B</div>
+        <div class="stat-label">UK restaurant market size in 2024, projected to reach £27B by 2029</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">450+</div>
-        <div class="stat-label">Thai restaurants in Greater London, few offering true regional, chef-led cooking</div>
+        <div class="stat-number">£7.4B</div>
+        <div class="stat-label">Size of the UK Asian restaurant market in 2024</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">18%</div>
-        <div class="stat-label">Annual growth in London diners seeking "authentic" Southeast Asian experiences</div>
+        <div class="stat-number">38%</div>
+        <div class="stat-label">London's share of total UK restaurant revenue</div>
       </div>
     </div>
   </section>
@@ -367,41 +419,59 @@
       <h2>Financial Opportunity</h2>
       <p class="subtitle">A capital-efficient flagship location with a clear path to profitability.</p>
     </div>
+    <div class="trajectory">
+      <div class="year-row">
+        <div class="year-label">Year 1</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 82%;"></div></div>
+        <div class="year-figures">
+          <span class="year-revenue">£764,400</span>
+          <span class="year-occupancy">70% occupancy</span>
+        </div>
+      </div>
+      <div class="year-row">
+        <div class="year-label">Year 2</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 94%;"></div></div>
+        <div class="year-figures">
+          <span class="year-revenue">£873,600</span>
+          <span class="year-occupancy">80% occupancy</span>
+        </div>
+      </div>
+      <div class="year-row">
+        <div class="year-label">Year 3</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 100%;"></div></div>
+        <div class="year-figures">
+          <span class="year-revenue">£927,900</span>
+          <span class="year-occupancy">85% occupancy</span>
+        </div>
+      </div>
+    </div>
     <div class="fin-grid">
       <div>
         <div class="fin-row">
-          <span class="fin-label">Initial Investment</span>
-          <span class="fin-value">£850,000</span>
+          <span class="fin-label">Seats</span>
+          <span class="fin-value">60</span>
         </div>
         <div class="fin-row">
-          <span class="fin-label">Projected Year 1 Revenue</span>
-          <span class="fin-value">£1.9M</span>
+          <span class="fin-label">Average Cover Spend</span>
+          <span class="fin-value">£25</span>
         </div>
         <div class="fin-row">
-          <span class="fin-label">Target EBITDA Margin</span>
-          <span class="fin-value">18%</span>
-        </div>
-        <div class="fin-row">
-          <span class="fin-label">Break-even</span>
-          <span class="fin-value">14 months</span>
+          <span class="fin-label">Net Profit Margin</span>
+          <span class="fin-value">10%</span>
         </div>
       </div>
       <div>
         <div class="fin-row">
-          <span class="fin-label">Projected Year 3 Revenue</span>
-          <span class="fin-value">£3.1M</span>
+          <span class="fin-label">Year 1 Net Profit</span>
+          <span class="fin-value">£76,440</span>
         </div>
         <div class="fin-row">
-          <span class="fin-label">5-Year ROI</span>
-          <span class="fin-value">3.4x</span>
+          <span class="fin-label">Initial Investment</span>
+          <span class="fin-value">£200,000–£350,000</span>
         </div>
         <div class="fin-row">
-          <span class="fin-label">Average Cover Spend</span>
-          <span class="fin-value">£42</span>
-        </div>
-        <div class="fin-row">
-          <span class="fin-label">Seats at Flagship</span>
-          <span class="fin-value">85</span>
+          <span class="fin-label">Break-even</span>
+          <span class="fin-value">End of Year 3</span>
         </div>
       </div>
     </div>
@@ -417,20 +487,20 @@
     <div class="calc-wrapper">
       <div class="calc-inputs">
         <div class="input-group">
-          <label>Seats <span class="val" id="seats-val">85</span></label>
-          <input type="range" id="seats" min="30" max="150" value="85" step="5">
+          <label>Seats <span class="val" id="seats-val">60</span></label>
+          <input type="range" id="seats" min="30" max="150" value="60" step="5">
         </div>
         <div class="input-group">
-          <label>Avg. Spend per Cover (£) <span class="val" id="spend-val">42</span></label>
-          <input type="range" id="spend" min="15" max="80" value="42" step="1">
+          <label>Avg. Spend per Cover (£) <span class="val" id="spend-val">25</span></label>
+          <input type="range" id="spend" min="15" max="80" value="25" step="1">
         </div>
         <div class="input-group">
-          <label>Table Turns per Day <span class="val" id="turns-val">2.5</span></label>
-          <input type="range" id="turns" min="1" max="5" value="2.5" step="0.5">
+          <label>Table Turns per Day <span class="val" id="turns-val">2</span></label>
+          <input type="range" id="turns" min="1" max="5" value="2" step="0.5">
         </div>
         <div class="input-group">
-          <label>Days Open per Year <span class="val" id="days-val">360</span></label>
-          <input type="range" id="days" min="300" max="365" value="360" step="5">
+          <label>Days Open per Week <span class="val" id="days-val">7</span></label>
+          <input type="range" id="days" min="1" max="7" value="7" step="1">
         </div>
         <div class="input-group">
           <label>Food & Labor Cost (% of Revenue) <span class="val" id="cost-val">65</span></label>
@@ -440,25 +510,25 @@
       <div class="calc-results">
         <div class="result-row">
           <span class="r-label">Covers per Day</span>
-          <span class="r-value" id="covers-day">213</span>
+          <span class="r-value" id="covers-day">120</span>
         </div>
         <div class="result-row">
           <span class="r-label">Covers per Year</span>
-          <span class="r-value" id="covers-year">76,500</span>
+          <span class="r-value" id="covers-year">43,680</span>
         </div>
         <div class="divider"></div>
         <div class="result-row">
           <span class="r-label">Annual Revenue</span>
-          <span class="r-value" id="revenue">£3,213,000</span>
+          <span class="r-value" id="revenue">£1,092,000</span>
         </div>
         <div class="result-row">
           <span class="r-label">Operating Costs</span>
-          <span class="r-value" id="opcosts">£2,088,450</span>
+          <span class="r-value" id="opcosts">£709,800</span>
         </div>
         <div class="divider"></div>
         <div class="result-row total">
           <span class="r-label">Est. Annual Profit</span>
-          <span class="r-value" id="profit">£1,124,550</span>
+          <span class="r-value" id="profit">£382,200</span>
         </div>
       </div>
     </div>
@@ -558,7 +628,7 @@
     costVal.textContent = costPct;
 
     const coversPerDay = seats * turns;
-    const coversPerYear = coversPerDay * days;
+    const coversPerYear = coversPerDay * days * 52;
     const revenue = coversPerYear * spend;
     const opCosts = revenue * (costPct / 100);
     const profit = revenue - opCosts;
