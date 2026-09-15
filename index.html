@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Krua Apsorn — London Expansion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --navy: #1a2b4a;
@@ -16,7 +19,7 @@
   html, body {
     height: 100%;
     overflow: hidden;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background: var(--navy);
     color: var(--white);
   }
@@ -65,12 +68,14 @@
   }
 
   h1 {
+    font-family: 'Playfair Display', Georgia, serif;
     font-size: clamp(2.5rem, 6vw, 5rem);
     font-weight: 700;
     letter-spacing: -0.02em;
   }
 
   h2 {
+    font-family: 'Playfair Display', Georgia, serif;
     font-size: clamp(1.8rem, 4vw, 3rem);
     font-weight: 700;
     margin-bottom: 0.5rem;
@@ -100,6 +105,22 @@
     margin-top: 2rem;
   }
 
+  .textile-pattern {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: min(38vw, 420px);
+    height: min(38vw, 420px);
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  #slide-1 > *:not(.textile-pattern) {
+    position: relative;
+    z-index: 1;
+  }
+
   /* ---------- Slide content wrapper ---------- */
   .content-slide {
     width: 100%;
@@ -127,12 +148,20 @@
     padding: 2rem 1.5rem;
   }
 
+  .stat-icon {
+    width: 40px;
+    height: 40px;
+    display: block;
+    margin-bottom: 1.2rem;
+  }
+
   .stat-number {
-    font-size: clamp(2rem, 3.5vw, 3rem);
-    font-weight: 700;
+    font-size: clamp(3.2rem, 6vw, 5rem);
+    font-weight: 800;
     color: var(--gold);
     line-height: 1;
-    margin-bottom: 0.8rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
   }
 
   .stat-label {
@@ -383,6 +412,16 @@
 
   <!-- Slide 1: Title -->
   <section class="slide active" id="slide-1">
+    <svg class="textile-pattern" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <pattern id="thaiLattice" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M30 2 L58 30 L30 58 L2 30 Z" fill="none" stroke="#c8a96b" stroke-width="1"/>
+          <path d="M30 16 L44 30 L30 44 L16 30 Z" fill="none" stroke="#c8a96b" stroke-width="1"/>
+          <circle cx="30" cy="30" r="2.5" fill="#c8a96b" stroke="none"/>
+        </pattern>
+      </defs>
+      <rect x="0" y="0" width="420" height="420" fill="url(#thaiLattice)"/>
+    </svg>
     <div class="eyebrow">Investor Pitch</div>
     <h1>Krua Apsorn</h1>
     <div class="brand">London Expansion</div>
@@ -398,14 +437,35 @@
     </div>
     <div class="stat-grid">
       <div class="stat-card">
+        <svg class="stat-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="12" y1="4" x2="12" y2="15" stroke="#c8a96b" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="16" y1="4" x2="16" y2="15" stroke="#c8a96b" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="20" y1="4" x2="20" y2="15" stroke="#c8a96b" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M12 15c0 3 8 3 8 0" stroke="#c8a96b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="16" y1="15" x2="16" y2="37" stroke="#c8a96b" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M28 4c4 2.5 4 10.5 0 15v18" stroke="#c8a96b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="28" y1="4" x2="28" y2="19" stroke="#c8a96b" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
         <div class="stat-number">£23B</div>
         <div class="stat-label">UK restaurant market size in 2024, projected to reach £27B by 2029</div>
       </div>
       <div class="stat-card">
+        <svg class="stat-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 17h28" stroke="#c8a96b" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M6 17c0 8.5 6.5 15 14 15s14-6.5 14-15" stroke="#c8a96b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <ellipse cx="20" cy="17" rx="14" ry="4" stroke="#c8a96b" stroke-width="1.5"/>
+          <path d="M13 3c-2 2 2 3.5 0 5.5" stroke="#c8a96b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 2c-2 2 2 3.5 0 5.5" stroke="#c8a96b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M27 3c-2 2 2 3.5 0 5.5" stroke="#c8a96b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
         <div class="stat-number">£7.4B</div>
         <div class="stat-label">Size of the UK Asian restaurant market in 2024</div>
       </div>
       <div class="stat-card">
+        <svg class="stat-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 36s12-11.5 12-21a12 12 0 1 0-24 0c0 9.5 12 21 12 21z" stroke="#c8a96b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="20" cy="15" r="4.5" stroke="#c8a96b" stroke-width="1.5"/>
+        </svg>
         <div class="stat-number">38%</div>
         <div class="stat-label">London's share of total UK restaurant revenue</div>
       </div>
@@ -499,6 +559,10 @@
           <input type="range" id="turns" min="1" max="5" value="2" step="0.5">
         </div>
         <div class="input-group">
+          <label>Occupancy Rate (%) <span class="val" id="occupancy-val">70</span></label>
+          <input type="range" id="occupancy" min="20" max="100" value="70" step="5">
+        </div>
+        <div class="input-group">
           <label>Days Open per Week <span class="val" id="days-val">7</span></label>
           <input type="range" id="days" min="1" max="7" value="7" step="1">
         </div>
@@ -510,25 +574,25 @@
       <div class="calc-results">
         <div class="result-row">
           <span class="r-label">Covers per Day</span>
-          <span class="r-value" id="covers-day">120</span>
+          <span class="r-value" id="covers-day">84</span>
         </div>
         <div class="result-row">
           <span class="r-label">Covers per Year</span>
-          <span class="r-value" id="covers-year">43,680</span>
+          <span class="r-value" id="covers-year">30,576</span>
         </div>
         <div class="divider"></div>
         <div class="result-row">
           <span class="r-label">Annual Revenue</span>
-          <span class="r-value" id="revenue">£1,092,000</span>
+          <span class="r-value" id="revenue">£764,400</span>
         </div>
         <div class="result-row">
           <span class="r-label">Operating Costs</span>
-          <span class="r-value" id="opcosts">£709,800</span>
+          <span class="r-value" id="opcosts">£496,860</span>
         </div>
         <div class="divider"></div>
         <div class="result-row total">
           <span class="r-label">Est. Annual Profit</span>
-          <span class="r-value" id="profit">£382,200</span>
+          <span class="r-value" id="profit">£267,540</span>
         </div>
       </div>
     </div>
@@ -591,12 +655,14 @@
   const seatsInput = document.getElementById('seats');
   const spendInput = document.getElementById('spend');
   const turnsInput = document.getElementById('turns');
+  const occupancyInput = document.getElementById('occupancy');
   const daysInput = document.getElementById('days');
   const costInput = document.getElementById('cost');
 
   const seatsVal = document.getElementById('seats-val');
   const spendVal = document.getElementById('spend-val');
   const turnsVal = document.getElementById('turns-val');
+  const occupancyVal = document.getElementById('occupancy-val');
   const daysVal = document.getElementById('days-val');
   const costVal = document.getElementById('cost-val');
 
@@ -618,16 +684,18 @@
     const seats = parseFloat(seatsInput.value);
     const spend = parseFloat(spendInput.value);
     const turns = parseFloat(turnsInput.value);
+    const occupancy = parseFloat(occupancyInput.value);
     const days = parseFloat(daysInput.value);
     const costPct = parseFloat(costInput.value);
 
     seatsVal.textContent = seats;
     spendVal.textContent = spend;
     turnsVal.textContent = turns;
+    occupancyVal.textContent = occupancy;
     daysVal.textContent = days;
     costVal.textContent = costPct;
 
-    const coversPerDay = seats * turns;
+    const coversPerDay = seats * turns * (occupancy / 100);
     const coversPerYear = coversPerDay * days * 52;
     const revenue = coversPerYear * spend;
     const opCosts = revenue * (costPct / 100);
@@ -640,7 +708,7 @@
     profitEl.textContent = formatGBP(profit);
   }
 
-  [seatsInput, spendInput, turnsInput, daysInput, costInput].forEach(input => {
+  [seatsInput, spendInput, turnsInput, occupancyInput, daysInput, costInput].forEach(input => {
     input.addEventListener('input', calculate);
   });
 
